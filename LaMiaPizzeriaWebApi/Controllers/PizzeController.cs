@@ -8,7 +8,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace LaMiaPizzeriaWebApi.Controllers
 {
-    public class PizzaController : Controller
+    public class PizzeController : Controller
     {
         public IActionResult Index()
         {

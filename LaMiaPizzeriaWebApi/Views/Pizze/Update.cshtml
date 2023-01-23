@@ -2,7 +2,7 @@
 @model PizzaView
 
 <div class="container">
-    <form asp-controller="Pizza" asp-action="Update" asp-route-id="@Model.Pizze.Id" method="post">
+    <form asp-controller="Pizze" asp-action="Update" asp-route-id="@Model.Pizze.Id" method="post">
         @Html.AntiForgeryToken()
         <div class="mb-3">
             <label>Id:</label>

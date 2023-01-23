@@ -16,7 +16,7 @@ namespace LaMiaPizzeriaWebApi.Controllers
         {
             using (PizzaContext db = new PizzaContext())
             {
-                List<Pizza> pizza = db.Pizze.Include(pizza => pizza.Ingredienti).ToList<Pizza>();
+                List<Pizza> pizza = db.Pizze.ToList<Pizza>();
 
                 return Ok(pizza);
             }

@@ -16,3 +16,46 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.post-list-table td.title {
+    min-width: 200px;
+}
+
+.post-list-table td.image img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.post-list-table td.items-buttons .buttons {
+    display: flex;
+}
+
+.items-buttons .buttons > * {
+    margin: 5px;
+}
+
+.post-single-image-container {
+    margin-bottom: 10px;
+}
+
+.miei-buttons-post {
+    display: flex;
+    margin: 5px;
+}
+
+.post .card-img-top {
+    height: 15vw;
+    object-fit: cover;
+}
