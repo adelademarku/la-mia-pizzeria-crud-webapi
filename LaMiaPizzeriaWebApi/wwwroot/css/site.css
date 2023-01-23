@@ -14,19 +14,10 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
-}
-
-
-
-html {
-    position: relative;
-    min-height: 100%;
-}
-
-body {
     margin-bottom: 60px;
+    height: 100%;
 }
+
 
 .post-list-table td.title {
     min-width: 200px;
@@ -48,7 +39,9 @@ body {
 
 .post-single-image-container {
     margin-bottom: 10px;
+  
 }
+
 
 .miei-buttons-post {
     display: flex;
@@ -59,3 +52,30 @@ body {
     height: 15vw;
     object-fit: cover;
 }
+
+
+
+
+
+
+.cover {
+    height: 100%;
+    border: 0px;
+    background-image: url("https://t4.ftcdn.net/jpg/02/19/94/97/240_F_219949741_fYwRBdwSW2ZRn9PLZ6DvDjn1jwRIx8YS.jpg");
+    background-size:initial;
+    background-position: center;
+}
+
+.cover__caption {
+    display: table;
+    height: 200px;
+    width: 100%;
+}
+
+/* .cover__caption__copy {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    color: white;
+}
+*/
