@@ -1,0 +1,37 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div id="prodotto_container">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        const id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+        debugger;
+        axios.get(`/api/ApiPizza/${id}`).then((res) => {
+            let prodotto = res.data;
+            console.log('articolo ricevuto', prodotto);
+
+
+            document.getElementById('prodotto_container').innerHTML +=
+                `
+                            <div class="col-12 col-md-4 p-2">
+                                  <div class="card post h-100">
+                                        <img src="${prodotto.image}" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                        <h5 class="card-title">${prodotto.name}</h5>
+                                                <p class="card-text">${prodotto.description}</p>
+                                        </div>
+                                </div>
+                            </div>
+                        `;
+
+        });
+
+    </script>
+}
