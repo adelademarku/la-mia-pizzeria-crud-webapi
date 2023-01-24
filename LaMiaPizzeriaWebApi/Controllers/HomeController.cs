@@ -32,6 +32,16 @@ namespace LaMiaPizzeriaWebApi.Controllers
 
         }
 
+        public IActionResult Details()
+        {
+            return View();
+        }
+
+
+
+
+
+
 
         public IActionResult Privacy()
         {

@@ -1,9 +1,11 @@
 ﻿using LaMiaPizzeriaWebApi.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace LaMiaPizzeriaWebApi.Database
 {
-    public class PizzaContext: DbContext
+    public class PizzaContext: IdentityDbContext<IdentityUser>
     {
         public DbSet<Pizza> Pizze { get; set; }
 

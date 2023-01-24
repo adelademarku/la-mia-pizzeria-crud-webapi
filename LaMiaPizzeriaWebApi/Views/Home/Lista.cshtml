@@ -1,24 +1,26 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
-
+﻿
 <div class="container">
     <div class="row">
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center">
                 <h1 class="mt-3 mb-3">Lista pizze</h1>
+                <div>
+                    <input id="input_search" type="text" class="form-control" placeholder="Cerca per titolo..." />
+                </div>
             </div>
         </div>
     </div>
-    <div class="row js_no_post text-center d-none">
-        <div class="col-12">
-            <h3>Non hai inserito alcun post</h3>
+    <div id="spinner-loader" class="d-flex justify-content-center">
+        <div class="spinner-border mt-5" role="status">
+            <img style="width:50px;" src="https://1.bp.blogspot.com/-CAroinPVLPw/X9GYFpVZ4DI/AAAAAAABcs8/EVBG1MUGq9wj56i-HKNzi5JHpDaERVlxwCNcBGAsYHQ/s509/food_pizza_whole.png" class="sr-only" />
         </div>
     </div>
-    <div class="row js_post_table d-none">
+    <div id="contenitore_no_prodotti" class="row text-center d-none">
+        <div class="col-12">
+            <h3>Non hai inserito nessuna pizza</h3>
+        </div>
+    </div>
+    <div id="contenitore_prodotti" class="row d-none">
         <!-- qui verranno mostrati gli elementi -->
     </div>
 </div>
@@ -27,44 +29,64 @@
 
     <script type="text/javascript">
 
-        loadList();
+        loadProdotti();
 
-        function loadList() {
+        document.getElementById('input_search').addEventListener('keyup', searchProdotti);
 
-            axios.get('/api/ApiPizza').then((res) => {
+        function searchProdotti() {
+            let stringaDiRicerca = document.getElementById('input_search').value;
+            loadProdotti(stringaDiRicerca);
+        }
 
-                console.log('risultato ok', res);
+        function loadProdotti(searchString) {
 
-                if (res.data.length == 0) {
+            axios.get('/api/ApiPizza', {
+                params: {
+                    search: searchString
+                }
+            }
+            ).then((res) => {
 
-                    document.querySelector('.js_no_post').classList.remove('d-none');
-                    document.querySelector('.js_post_table').classList.add('d-none');
+                console.log('risultato ok');
+                console.log(res);
+
+                debugger;
+
+                if (res.data.length > 0) {
+                    document.getElementById('contenitore_prodotti').classList.remove('d-none');
+                    document.getElementById('contenitore_no_prodotti').classList.add('d-none');
+
+                    document.getElementById('contenitore_prodotti').innerHTML = '';
+
+                    res.data.forEach(prodotto => {
+
+                        console.log('prodotto: ', prodotto);
+
+                        document.getElementById('contenitore_prodotti').innerHTML +=
+                            `
+                                    <div class="col-12 col-md-4 p-2">
+                                        <div class="card post h-100">
+                                        <a href="/Home/Details/${prodotto.id}">
+                                            <img src="${prodotto.image}" class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                                <h5 class="card-title">${prodotto.title}</h5>
+                                                <p class="card-text">${prodotto.description}</p>
+                                            </div>
+                                        </a>
+                                        </div>
+                                    </div>
+                                    `;
+                    });
 
                 } else {
 
-                    document.querySelector('.js_post_table').classList.remove('d-none');
-                    document.querySelector('.js_no_post').classList.add('d-none');
+                    document.getElementById('contenitore_no_prodotti').classList.remove('d-none');
+                    document.getElementById('contenitore_prodotti').classList.add('d-none');
 
-                    document.querySelector('.js_post_table').innerHTML = '';
 
-                    res.data.forEach(post => {
-
-                        console.log('pizza', post);
-
-                        document.querySelector('.js_post_table').innerHTML +=
-                            `
-                                           <div class="col-12 col-md-4 p-2">
-                                            <div class="card post h-100">
-                                              <img src="${post.image}" class="card-img-top" alt="...">
-                                              <div class="card-body">
-                                                <h5 class="card-title">${post.title}</h5>
-                                                <p class="card-text">${post.description}</p>
-                                              </div>
-                                            </div>
-                                        </div>
-                                     `;
-                    });
                 }
+
+                document.getElementById('spinner-loader').classList.add('d-none');
             }).catch((error) => {
                 console.log(error);
             });
